@@ -9,12 +9,14 @@ List<string> words = [
 ];
 */
 
-List<Word> words = [
-  new Word("hus", "house", "swedish", "english"),
-  new Word("hem", "home", "swedish", "english"),
-  new Word("stor", "big", "swedish", "english"),
-  new Word("stor", "large", "swedish", "english")
-];
+List<Word> words = [];
+
+// fyll listan med ord från disk (wordlists)
+foreach(string line in File.ReadAllLines("./wordlists/swedish-english.csv"))
+{
+    string[] wordPair = line.Split(",");
+    words.Add(new Word(wordPair[0], wordPair[1], "swedish", "english"));
+}
 
 // Dictionary
 
@@ -28,7 +30,7 @@ StringComparer.OrdinalIgnoreCase
 
 while (true)
 {
-Console.WriteLine("Ange vilkt ord du vill översätta");
+Console.WriteLine("Ange vilket ord du vill översätta");
 string? wordToTranslate = Console.ReadLine()!;
 
 if(swedishToEnglish.ContainsKey(wordToTranslate!))
